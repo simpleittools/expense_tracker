@@ -10,20 +10,46 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewExpense> {
+  final _titleController = TextEditingController();
+
+  // make sure to remove the TextEditingController when done or you will have memory issues.
+  @override
+  void dispose() {
+    _titleController.dispose();
+    super.dispose();
+  }
+
+  // var _enteredTitled = '';
+  //
+  // void _saveTitleInput(String inputValue) {
+  //   _enteredTitled = inputValue;
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           TextField(
+            // onChanged: _saveTitleInput,
+            controller: _titleController,
             maxLength: 50,
             // KeyboardType of TextInputType.text is the default, therefore does not need to be set
             keyboardType: TextInputType.text,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               label: Text('Title'),
             ),
           ),
+          Row(
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    print(_titleController.text);
+                  },
+                  child: const Text('Save Expense'))
+            ],
+          )
         ],
       ),
     );
