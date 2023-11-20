@@ -31,6 +31,18 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  void _submitExpenseData() {
+    final enteredAmount = double.tryParse(_amountController
+        .text); // tryParse will attempt to convert the string to a number. if it fails, it returns null
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _selectedDate == null) {
+      // Show an error message
+    }
+  }
+
   // make sure to remove the TextEditingController when done or you will have memory issues.
   @override
   void dispose() {
@@ -131,10 +143,7 @@ class _NewExpenseState extends State<NewExpense> {
                 child: const Text('Cancel'),
               ),
               ElevatedButton(
-                  onPressed: () {
-                    print(_titleController.text);
-                    print(_amountController.text);
-                  },
+                  onPressed: _submitExpenseData,
                   child: const Text('Save Expense')),
             ],
           )
