@@ -41,6 +41,7 @@ class _ExpensesState extends State<Expenses> {
   void _openAddExpenseOverlay() {
     // open the overlay
     showModalBottomSheet(
+      useSafeArea: true,
       isScrollControlled: true,
       context: context,
       builder: (ctx) => NewExpense(
@@ -103,6 +104,7 @@ class _ExpensesState extends State<Expenses> {
       body: width < 600
           ? Column(
               children: [
+                // todo: this looks great on a phone, but on a tablet or web, the chart is in the middle of the screen. Move to the top.
                 Chart(expenses: _registeredExpenses),
                 Expanded(
                   child: mainContent,
